@@ -1,56 +1,69 @@
-/*function Add(num1, num2) {
-    return num1 + num2;
-};
-var resultAdd = Add (2, 3);
-console.log(resultAdd);
-
-function Subtract(num1, num2) {
-    return num1 - num2;
-}
-var resultSubtract = Subtract(10, 2)
-console.log(resultSubtract);
-
-function Multiply(num1, num2){
-    return num1 * num2
-};
-var resultMultiply = Multiply(2, 6);
-console.log(resultMultiply);
-
-function Divide(num1, num2) {
-    return num1 / num2;
-}
-var resultDivide = Divide(14, 2);
-console.log(resultDivide);*/
-
 let currentResult = 0;
 
+let resultHistory = [];
+
 addBtn.addEventListener("click", add);
-subtractBtn.addEventListener("click", sub);
+subtractBtn.addEventListener("click", subtract);
 multiplyBtn.addEventListener("click", multiply);
 divideBtn.addEventListener("click", divide);
+squareBtn.addEventListener("click", square);
+powerBtn.addEventListener("click", power);
+
+function addHistoryLog (userInput, userOperation, operationResult) {
+    let logEntry = {
+        input: userInput,
+        operation: userOperation,
+        result: operationResult
+    };
+    resultHistory.push(logEntry);
+    resultHistory.push(resultHistory);
+}
 
 function add() {
     let calculationDescription = currentResult + " + " + userInput.value;
     currentResult = currentResult + parseInt(userInput.value);
     outputResult(currentResult, calculationDescription);
+    addHistoryLog(parseInt(userInput.value), "ADD", currentResult);
 }
 
-function sub() {
+function subtract() {
     let calculationDescription = currentResult + " - " + userInput.value;
     currentResult = currentResult - parseInt(userInput.value);
     outputResult(currentResult, calculationDescription);
+    addHistoryLog(parseInt(userInput.value), "SUBTRACT", currentResult);
+    
 }
 
 function multiply() {
     let calculationDescription = currentResult + " * " + userInput.value;
     currentResult = currentResult * parseInt(userInput.value);
     outputResult(currentResult, calculationDescription);
+    addHistoryLog(parseInt(userInput.value), "MULTIPLY", currentResult);
 }
 
 function divide() {
     let calculationDescription = currentResult + " / " + userInput.value;
     currentResult = currentResult / parseInt(userInput.value);
     outputResult(currentResult, calculationDescription);
+    addHistoryLog(parseInt(userInput.value), "DIVIDE", currentResult);
 }
+
+function square() {
+    let calculationDescription = currentResult + " ^2 ";
+    currentResult = currentResult * currentResult;
+    outputResult(currentResult, calculationDescription);
+    addHistoryLog(parseInt(userInput.value), "SQUARE", currentResult);
+}
+
+function power() {
+    let calculationDescription = currentResult + " ^ " + userInput.value;
+    currentResult = Math.pow(currentResult, parseInt(userInput.value));
+    outputResult(currentResult, calculationDescription);
+    resultHistory.push(currentResult);
+    console.log(resultHistory);
+}
+
+
+
 
 
